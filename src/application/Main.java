@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
+//Pointer to github commit message.
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {

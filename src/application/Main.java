@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
 
-//Pointer to github commit message.
+
+
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {

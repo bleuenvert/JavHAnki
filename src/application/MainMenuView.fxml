@@ -6,9 +6,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<TitledPane fx:id="mainMenuTitledPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="298.0" text="JavHAnki" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
+		<!--https://stackoverflow.com/questions/50039309/javafx-fxml-loadexception-no-controller-specified
+		was referenced to learn about setting controllers
+		https://stackoverflow.com/questions/2757396/how-do-i-comment-out-a-block-of-tags-in-xml
+		was referenced to learn how to comment in FXML files!)-->
+<TitledPane fx:id="mainMenuTitledPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="298.0" text="JavHAnki" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainMenuController">
+ 	<content>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -18,7 +21,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="studyMenuButton" mnemonicParsing="false" text="Study" />
+                  <Button fx:id="studyMenuButton" onAction="#openStudyMenu" mnemonicParsing="false" text="Study" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
@@ -33,5 +36,5 @@
             </HBox>
          </children>
       </VBox>
-   </content>
+	</content>
 </TitledPane>

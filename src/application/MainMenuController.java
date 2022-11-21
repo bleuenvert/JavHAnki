@@ -30,11 +30,13 @@ public class MainMenuController {
 	
 	@FXML
 	void openStudyMenu(ActionEvent openStudyMenuEvent) {
-		Scene mainScene = applicationStage.getScene();
 			try {
+				//Referenced https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html to learn
+				//to create a stage.
+				applicationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
-				VBox root = loader.load(new FileInputStream("src/application/StudyMenuView.fxml"));
-				Scene scene = new Scene(root,400,400);
+				VBox studyRoot = loader.load(new FileInputStream("src/application/StudyMenuView.fxml"));
+				Scene scene = new Scene(studyRoot,400,400);
 				applicationStage.setScene(scene);
 				applicationStage.setTitle("Study Menu");
 				applicationStage.show();

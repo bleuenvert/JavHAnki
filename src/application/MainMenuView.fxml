@@ -26,12 +26,12 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="deckManagementButton" mnemonicParsing="false" text="Manage Decks" />
+                  <Button fx:id="deckManagementButton" onAction="#openDeckMenu" mnemonicParsing="false" text="Manage Decks" />
                </children>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="viewDataButton" mnemonicParsing="false" text="View Data" />
+                  <Button fx:id="viewDataButton" onAction="#openDataMenu" mnemonicParsing="false" text="View Data" />
                </children>
             </HBox>
          </children>

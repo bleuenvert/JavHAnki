@@ -44,6 +44,36 @@ public class MainMenuController {
 				e.printStackTrace();
 			}
 		}
+	
+	@FXML
+	void openDeckMenu(ActionEvent openDeckMenuEvent) {
+			try {
+				applicationStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				VBox studyRoot = loader.load(new FileInputStream("src/application/DeckMenuView.fxml"));
+				Scene scene = new Scene(studyRoot,400,400);
+				applicationStage.setScene(scene);
+				applicationStage.setTitle("Deck Management Menu");
+				applicationStage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
+	@FXML
+	void openDataMenu(ActionEvent openDataMenuEvent) {
+			try {
+				applicationStage = new Stage();
+				FXMLLoader loader = new FXMLLoader();
+				VBox studyRoot = loader.load(new FileInputStream("src/application/DataMenuView.fxml"));
+				Scene scene = new Scene(studyRoot,400,400);
+				applicationStage.setScene(scene);
+				applicationStage.setTitle("Data Menu");
+				applicationStage.show();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	

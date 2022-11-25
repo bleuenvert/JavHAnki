@@ -13,6 +13,11 @@ public class Deck {
 		this.deckList = deckList;
 	}
 	
+	public Deck(String deckName) {
+		this.deckName = deckName;
+		this.deckList = new ArrayList<Card>();
+	}
+	
 	public Deck(Deck deckToCopy) {
 		deckName = deckToCopy.getDeckName();
 		deckList = deckToCopy.getDeckList();

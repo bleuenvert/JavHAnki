@@ -37,6 +37,8 @@ public class DeckMenuController {
 	
 	@FXML
 	void addDeck(ActionEvent addDeck) {
+		String deckName = deckNameTextfield.getText();
+		Deck newDeck = new Deck(deckName);
 		
 	}
 	

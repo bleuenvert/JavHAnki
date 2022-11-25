@@ -3,7 +3,9 @@ package application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -36,9 +38,15 @@ public class DeckMenuController {
 	
 	
 	@FXML
-	void addDeck(ActionEvent addDeck) {
+	void addDeck(ActionEvent addDeck) throws IOException {
 		String deckName = deckNameTextfield.getText();
 		Deck newDeck = new Deck(deckName);
+		String newDeckPath = "/src/Decks/" + newDeck.getDeckName();
+		File deckFile = new File(newDeckPath);
+		
+		System.out.println(deckName + newDeckPath);
+		//https://www.w3schools.com/java/java_files_create.asp was helpful
+		//deckFile.createNewFile();
 		
 	}
 	

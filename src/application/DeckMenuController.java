@@ -41,12 +41,13 @@ public class DeckMenuController {
 	void addDeck(ActionEvent addDeck) throws IOException {
 		String deckName = deckNameTextfield.getText();
 		Deck newDeck = new Deck(deckName);
-		String newDeckPath = "/src/Decks/" + newDeck.getDeckName();
+		String newDeckPath = "../Decks/" + newDeck.getDeckName();
 		File deckFile = new File(newDeckPath);
 		
-		System.out.println(deckName + newDeckPath);
 		//https://www.w3schools.com/java/java_files_create.asp was helpful
-		//deckFile.createNewFile();
+		if (!deckFile.exists()) deckFile.createNewFile();
+		
+		System.out.println(deckFile.getAbsolutePath());
 		
 	}
 	

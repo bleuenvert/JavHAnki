@@ -6,7 +6,10 @@ import javafx.fxml.FXMLLoader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +22,7 @@ import javafx.stage.Stage;
 
 public class DeckMenuController {
 	Stage applicationStage;
+
 	
 	@FXML 
 	private Label titleLabel;
@@ -31,6 +35,7 @@ public class DeckMenuController {
 	
 	@FXML
 	private ChoiceBox<String> deckListChoiceBox;
+
 	
 	@FXML
 	private Button editDeckButton;
@@ -41,21 +46,34 @@ public class DeckMenuController {
 	void addDeck(ActionEvent addDeck) throws IOException {
 		String deckName = deckNameTextfield.getText();
 		Deck newDeck = new Deck(deckName);
-		String newDeckPath = "../Decks/" + newDeck.getDeckName();
+		//https://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html
+		//https://stackoverflow.com/questions/4871051/how-to-get-the-current-working-directory-in-java
+		// I am not sure if this works on windows. I might need to replace "/" with a system dependent separator
+		Path path = FileSystems.getDefault().getPath("src", "Decks");
+		String newDeckPath = path.toString() + "/" + newDeck.getDeckName() + ".txt";
+		
 		File deckFile = new File(newDeckPath);
-		
 		//https://www.w3schools.com/java/java_files_create.asp was helpful
-		if (!deckFile.exists()) deckFile.createNewFile();
+		try {
 		
-		System.out.println(deckFile.getAbsolutePath());
-		
+		if (deckFile.createNewFile()) {
+			System.out.println(deckFile.getAbsolutePath());
+		} else {
+			System.out.println("File already exists");
+		}
+		} catch (IOException e){
+			System.out.println("Error occured");
+			e.printStackTrace();
 	}
-	
+	}
 	
 	@FXML
 	void editDeck(ActionEvent editDeck) {
+		Path path = FileSystems.getDefault().getPath("src", "Decks");
+		File Decks = new File(path.toString());
+		String DeckContents[] = Decks.list();
+		deckListChoiceBox.getItems().setAll(DeckContents);
+
 	
 	}
-	
-	
 }

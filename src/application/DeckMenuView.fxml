@@ -19,7 +19,24 @@
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <ChoiceBox fx:id="deckListChoiceBox" prefWidth="150.0" />
-            <Button fx:id="editDeckButton" mnemonicParsing="false" onAction="#editDeck" text="Select Deck To Edit" />
+            <Button fx:id="refreshDeckButton" mnemonicParsing="false" onAction="#refeshDeckOptions" text="Refresh Deck Options" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="cardFrontLabel" text="Front" />
+            <TextField fx:id="cardFrontTextField" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="cardBackLabel" text="Back" />
+            <TextField fx:id="cardBackTextField" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="addCardButton" mnemonicParsing="false" onAction="#addCard" text="Add Card To Selected Deck" />
          </children>
       </HBox>
    </children>

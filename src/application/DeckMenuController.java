@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
@@ -40,6 +42,20 @@ public class DeckMenuController {
 	@FXML
 	private Button refreshDeckButton;
 	
+	@FXML
+	private Label cardFrontLabel;
+	
+	@FXML
+	private Label cardBackLabel;
+	
+	@FXML
+	private TextField cardFrontTextField;
+	
+	@FXML
+	private TextField cardBackTextField;
+	
+	@FXML
+	private Button addCardButton;
 	
 	
 	@FXML
@@ -82,7 +98,7 @@ public class DeckMenuController {
 	}
 	
 	@FXML
-	void refeshDeckOptions(ActionEvent editDeck) {
+	void refeshDeckOptions(ActionEvent refreshDeckList) {
 		Path path = FileSystems.getDefault().getPath("src", "Decks");
 		File Decks = new File(path.toString());
 		String DeckContents[] = Decks.list();
@@ -90,4 +106,34 @@ public class DeckMenuController {
 
 	
 	}
+	
+	@FXML
+	void addCard(ActionEvent addCard) throws IOException{
+		Path path = FileSystems.getDefault().getPath("src", "Decks");
+		String front = cardFrontTextField.getText();
+		String back = cardBackTextField.getText();
+		String deck = deckListChoiceBox.getValue();
+		String pathToDeck = path.toString() + '/' + deck;
+		File deckFile = new File(pathToDeck);
+		
+		//https://stackoverflow.com/questions/24982744/printwriter-to-append-data-if-file-exist
+		// showed syntax for creating a printwriter that appends files
+		try{
+			if (deckFile.exists()) {
+				PrintWriter pwriter = new PrintWriter(new FileOutputStream(pathToDeck), true);
+				pwriter.append(front); pwriter.append("/n");
+				pwriter.append(back); pwriter.println();
+				pwriter.close();
+			} else {
+				System.out.println("deck does not exist");
+			}
+
+
+		} catch (IOException e){
+			System.out.println("Error");
+		}
+		
+		
+	}
+	
 }

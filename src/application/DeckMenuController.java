@@ -123,7 +123,7 @@ public class DeckMenuController {
 		//used also
 		try{
 			if (deckFile.exists()) {
-				PrintWriter pwriter = new PrintWriter(new FileWriter(pathToDeck), true);
+				PrintWriter pwriter = new PrintWriter(new FileWriter((pathToDeck), true));
 				pwriter.append(front); pwriter.append("\n");
 				pwriter.append(back); pwriter.append("\n");
 				pwriter.close();

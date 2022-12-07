@@ -15,6 +15,25 @@ import javafx.stage.Stage;
 
 public class DataMenuController {
 	Stage applicationStage;
+	
 	@FXML 
-	private Label titleLabel;
+	private Label timesStudiedLabel;
+	
+	@FXML 
+	private Label successLabel;
+	
+	@FXML
+	private Button refreshButton;
+	
+	@FXML
+	private Button getDataButton;
+	
+	
+	void refreshDeckList(ActionEvent refresh) {
+		
+	}
+	
+	void getData(ActionEvent getData) {
+		
+	}
 }

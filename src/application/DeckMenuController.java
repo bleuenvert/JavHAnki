@@ -36,7 +36,7 @@ public class DeckMenuController {
 
 	
 	@FXML
-	private Button refreshDeckButton;
+	private Button refreshButton;
 	
 	@FXML
 	private Label cardFrontLabel;

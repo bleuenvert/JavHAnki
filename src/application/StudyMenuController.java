@@ -93,6 +93,13 @@ public class StudyMenuController {
 		File deck = new File(deckpath);
 		Scanner scanner = new Scanner(deck);
 		
+		//Path path2 = FileSystems.getDefault().getPath("src", "Data");
+		//String dataPath = path2.toString() + '/' + deckToStudy;
+		//dataPath.replace(".txt", ".data");
+		//File data = new File(dataPath);
+		//Scanner scanner2 = new Scanner(data);
+		
+		
 		VBox studyContainer = new VBox();
 		
 		HBox frontContainer = new HBox();

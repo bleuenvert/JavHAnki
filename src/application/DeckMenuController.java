@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
@@ -118,11 +119,13 @@ public class DeckMenuController {
 		
 		//https://stackoverflow.com/questions/24982744/printwriter-to-append-data-if-file-exist
 		// showed syntax for creating a printwriter that appends files
+		//https://stackoverflow.com/questions/8210616/printwriter-append-method-not-appending
+		//used also
 		try{
 			if (deckFile.exists()) {
-				PrintWriter pwriter = new PrintWriter(new FileOutputStream(pathToDeck), true);
-				pwriter.append(front); pwriter.append("/n");
-				pwriter.append(back); pwriter.println();
+				PrintWriter pwriter = new PrintWriter(new FileWriter(pathToDeck), true);
+				pwriter.append(front); pwriter.append("\n");
+				pwriter.append(back); pwriter.append("\n");
 				pwriter.close();
 			} else {
 				System.out.println("deck does not exist");

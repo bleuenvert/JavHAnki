@@ -136,6 +136,8 @@ public class StudyMenuController {
 		PrintWriter dataWriter = new PrintWriter(data);
 		dataWriter.println(timesStudied);
 		
+		//https://www.demo2s.com/java/javafx-space-padding-and-margin.html
+		// for element spacing
 		VBox studyContainer = new VBox(10);
 		
 		HBox frontContainer = new HBox(10);

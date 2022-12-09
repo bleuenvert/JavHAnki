@@ -56,7 +56,10 @@ public class DataMenuController {
 		File deck = new File(deckpath);
 		Scanner scanner = new Scanner(deck);
 		timesStudiedLabel.setText("Times Deck Was Studied: " + scanner.nextLine());
-		successLabel.setText("Success Percentage: " + scanner.nextLine());
+		int correctAnswers = Integer.parseInt(scanner.nextLine());
+		int incorrectAnswers = Integer.parseInt(scanner.nextLine());
+		double percentage = (correctAnswers * 100.0 / (correctAnswers + incorrectAnswers));
+		successLabel.setText("Success Percentage: " + percentage) ;
 		scanner.close();
 		
 		

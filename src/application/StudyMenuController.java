@@ -129,7 +129,7 @@ public class StudyMenuController {
 		
 		//https://www.geeksforgeeks.org/how-to-convert-a-string-to-an-int-in-java/
 		//reviewed how to change string to an int
-		timesStudied = Integer.parseInt(dataScanner.nextLine());
+		timesStudied = Integer.parseInt(dataScanner.nextLine()) + 1;
 		correctAnswers = Integer.parseInt(dataScanner.nextLine());
 		incorrectAnswers = Integer.parseInt(dataScanner.nextLine());
 		PrintWriter dataWriter = new PrintWriter(data);

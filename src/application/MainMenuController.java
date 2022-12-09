@@ -83,7 +83,7 @@ public class MainMenuController {
 				applicationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				VBox dataRoot = loader.load(new FileInputStream("src/application/DataMenuView.fxml"));
-				Scene scene = new Scene(dataRoot,225,200);
+				Scene scene = new Scene(dataRoot,225,250);
 				applicationStage.setScene(scene);
 				applicationStage.setTitle("Data Menu");
 				applicationStage.show();

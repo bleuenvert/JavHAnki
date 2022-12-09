@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 /**
  * Controller for DeckMenuView.fxml. Controls a refresh button, a create deck textfield/button, 
@@ -21,11 +20,9 @@ import javafx.stage.Stage;
  *
  */
 public class DeckMenuController {
-	Stage applicationStage;
-
 	
 	@FXML 
-	private Label titleLabel;
+	private Label errorLabel;
 	
 	@FXML
 	private TextField deckNameTextfield;
@@ -82,10 +79,10 @@ public class DeckMenuController {
 		if (deckFile.createNewFile()) {
 			//System.out.println(deckFile.getAbsolutePath());
 		} else {
-			System.out.println("Deck with that name already exists");
+			errorLabel.setText("Deck with that name already exists");
 		}
 		} catch (IOException e){
-			System.out.println("Error occured when creating Deck");
+			errorLabel.setText("Error occured when creating Deck");
 			e.printStackTrace();
 	}
 		try {
@@ -100,10 +97,10 @@ public class DeckMenuController {
 				dataWriter.close();
 				
 			} else {
-				System.out.println("Deck data file with that name already exists");
+				errorLabel.setText("Deck data file with that name already exists");
 			}
 			} catch (IOException e){
-				System.out.println("Error occured when creating Deck Data file");
+				errorLabel.setText("Error occured when creating Deck Data file");
 				e.printStackTrace();
 		}
 	}
@@ -138,8 +135,11 @@ public class DeckMenuController {
 		String pathToDeck = path.toString() + '/' + deck;
 		File deckFile = new File(pathToDeck);
 		
-		String front = cardFrontTextField.getText();
-		String back = cardBackTextField.getText();
+		Card newCard = new Card(cardFrontTextField.getText(), cardBackTextField.getText());
+		
+		//since new cards are just appended to deck files, creating a deck object is not necessary here.
+		//Deck newDeck = new Deck(deckListChoiceBox.getValue());
+		//newDeck.addCard(newCard);
 		
 		//https://stackoverflow.com/questions/24982744/printwriter-to-append-data-if-file-exist
 		// showed syntax for creating a printwriter that appends files
@@ -148,16 +148,16 @@ public class DeckMenuController {
 		try{
 			if (deckFile.exists()) {
 				PrintWriter pwriter = new PrintWriter(new FileWriter((pathToDeck), true));
-				pwriter.append(front); pwriter.append("\n");
-				pwriter.append(back); pwriter.append("\n");
+				pwriter.append(newCard.getFront()); pwriter.append("\n");
+				pwriter.append(newCard.getBack()); pwriter.append("\n");
 				pwriter.close();
 			} else {
-				System.out.println("deck does not exist");
+				errorLabel.setText("Deck does not exist");
 			}
 
 
 		} catch (IOException e){
-			System.out.println("Error");
+			errorLabel.setText("Error");
 		}
 		
 		

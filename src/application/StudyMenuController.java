@@ -19,6 +19,11 @@ import javafx.stage.Stage;
 /**
  * Controller for StudyMenuView.fxml. There is a refresh decklist button, a study deck button that opens
  * a new sub-studying cards menu, and 3 methods used for this sub-study menu buttons.
+ * instance variables:
+ * timesStudied number of times a deck has been opened to study it
+ * correctAnswers number of times an answer was correct
+ * incorrectAnswers number of times an answer was incorrect
+ * These are instance variables so that they may be changed across different method calls.
  * @author bleu
  *
  */
@@ -26,6 +31,9 @@ public class StudyMenuController {
 	//https://stackoverflow.com/questions/43194089/local-variable-defined-in-an-enclosing-scope-must-be-final-or-effectively-final
 	// used to help solve an issue of scope. hiddenAnswer is no longer a local variable to avoid the enclosing scope issue I had before.
 	Boolean hiddenAnswer = true;
+	int timesStudied;
+	int correctAnswers;
+	int incorrectAnswers;
 	
 	@FXML
 	private VBox rootVBox;
@@ -83,11 +91,9 @@ public class StudyMenuController {
 	 * @param backContent label that displays the back of the card
 	 * @param deckScanner scanner for deck file
 	 * @param dataWriter print writer for data file
-	 * @param correctAnswers number of correct answers in total
-	 * @param incorrectAnswers number of incorrect answers in total
 	 * @return
 	 */
-	Boolean correctAnswer(Boolean hiddenAnswer, Label frontContent, Label backContent, Scanner deckScanner, PrintWriter dataWriter, int correctAnswers, int incorrectAnswers) {
+	Boolean correctAnswer(Boolean hiddenAnswer, Label frontContent, Label backContent, Scanner deckScanner, PrintWriter dataWriter) {
 		if (hiddenAnswer == false) {
 			backContent.setText("");
 			correctAnswers ++;
@@ -118,11 +124,9 @@ public class StudyMenuController {
 	 * @param backContent label that displays the back of the card
 	 * @param deckScanner scanner for deck file
 	 * @param dataWriter print writer for data file
-	 * @param correctAnswers number of correct answers in total
-	 * @param incorrectAnswers number of incorrect answers in total
 	 * @return
 	 */
-	Boolean incorrectAnswer(Boolean hiddenAnswer, Label frontContent, Label backLabel, Scanner deckScanner, PrintWriter dataWriter, int correctAnswers, int incorrectAnswers) {
+	Boolean incorrectAnswer(Boolean hiddenAnswer, Label frontContent, Label backLabel, Scanner deckScanner, PrintWriter dataWriter) {
 		if (hiddenAnswer == false) {
 			backLabel.setText("");
 			incorrectAnswers ++;
@@ -155,9 +159,7 @@ public class StudyMenuController {
 	 */
 	@FXML
 	void studyDeck(ActionEvent study) throws FileNotFoundException {
-		int timesStudied;
-		int correctAnswers;
-		int incorrectAnswers;
+
 		
 		//set back to true for each new study session
 		hiddenAnswer = true;
@@ -169,6 +171,9 @@ public class StudyMenuController {
 
 		
 		String deckToStudy = decklistChoiceBox.getValue();
+		if (deckToStudy == null) {
+			titleLabel.setText("Please make a deck selection");
+		} else {
 		Path path = FileSystems.getDefault().getPath("src", "Decks");
 		String deckpath = path.toString() + '/' + deckToStudy;
 		File deck = new File(deckpath);
@@ -220,10 +225,10 @@ public class StudyMenuController {
 
 		// the "Answer" methods return a boolean relevant the the state of hiddenAnswer.
 		seeAnswerButton.setOnAction(nextEvent -> hiddenAnswer = seeAnswer(hiddenAnswer, backContent, deckScanner));
-		correctButton.setOnAction(correctEvent -> hiddenAnswer = correctAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter, correctAnswers, incorrectAnswers));
-		incorrectButton.setOnAction(incorrectEvent -> hiddenAnswer = incorrectAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter, correctAnswers, incorrectAnswers));
+		correctButton.setOnAction(correctEvent -> hiddenAnswer = correctAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter));
+		incorrectButton.setOnAction(incorrectEvent -> hiddenAnswer = incorrectAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter));
 		
 		
-		
+		}	
 	}
 }

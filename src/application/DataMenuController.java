@@ -23,6 +23,9 @@ public class DataMenuController {
 	@FXML 
 	private Label timesStudiedLabel;
 	
+	@FXML
+	private Label errorLabel;
+	
 	@FXML 
 	private Label successLabel;
 	
@@ -62,6 +65,8 @@ public class DataMenuController {
 	@FXML
 	void getData(ActionEvent getData) throws FileNotFoundException {
 		String deckToData = decklistChoiceBox.getValue();
+		if (deckToData == null) {errorLabel.setText("Please make a deck selection");
+		} else {
 		Path path = FileSystems.getDefault().getPath("src", "Data");
 		String deckpath = path.toString() + '/' + deckToData;
 		File deck = new File(deckpath);
@@ -72,6 +77,7 @@ public class DataMenuController {
 		double percentage = (correctAnswers * 100.0 / (correctAnswers + incorrectAnswers));
 		successLabel.setText("Success Percentage: " + percentage) ;
 		scanner.close();
+		}
 		
 		
 	}

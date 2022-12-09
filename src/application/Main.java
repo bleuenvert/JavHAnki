@@ -16,7 +16,7 @@ public class Main extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			TitledPane root = loader.load(new FileInputStream("src/application/MainMenuView.fxml"));
-			Scene scene = new Scene(root,400,400);
+			Scene scene = new Scene(root,300,200);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

@@ -1,10 +1,10 @@
 package application;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+
 
 import java.io.File;
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
@@ -16,11 +16,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
 
 public class StudyMenuController {
 	//https://stackoverflow.com/questions/43194089/local-variable-defined-in-an-enclosing-scope-must-be-final-or-effectively-final
@@ -132,19 +132,22 @@ public class StudyMenuController {
 		timesStudied = Integer.parseInt(dataScanner.nextLine()) + 1;
 		correctAnswers = Integer.parseInt(dataScanner.nextLine());
 		incorrectAnswers = Integer.parseInt(dataScanner.nextLine());
+		dataScanner.close();
 		PrintWriter dataWriter = new PrintWriter(data);
 		dataWriter.println(timesStudied);
 		
-		VBox studyContainer = new VBox();
+		//https://www.demo2s.com/java/javafx-space-padding-and-margin.html
+		// for element spacing
+		VBox studyContainer = new VBox(10);
 		
-		HBox frontContainer = new HBox();
+		HBox frontContainer = new HBox(10);
 		Label frontLabel = new Label("Front:");
 		Label frontContent = new Label(deckScanner.nextLine());
 		Button seeAnswerButton = new Button("See Answer");
 
 		frontContainer.getChildren().addAll(frontLabel, frontContent, seeAnswerButton);
 		
-		HBox backContainer = new HBox();
+		HBox backContainer = new HBox(10);
 		Label backLabel = new Label("Back:");
 		Label backContent = new Label();
 		Button correctButton = new Button("Correct");
@@ -152,7 +155,7 @@ public class StudyMenuController {
 		backContainer.getChildren().addAll(backLabel, backContent, correctButton, incorrectButton);
 		
 		studyContainer.getChildren().addAll(frontContainer, backContainer);
-		Scene studyScene = new Scene(studyContainer, 400, 450);
+		Scene studyScene = new Scene(studyContainer, 500, 100);
 		mainStage.setScene(studyScene);
 
 		

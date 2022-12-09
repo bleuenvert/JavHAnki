@@ -36,7 +36,7 @@ public class MainMenuController {
 				applicationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				VBox studyRoot = loader.load(new FileInputStream("src/application/StudyMenuView.fxml"));
-				Scene scene = new Scene(studyRoot,400,400);
+				Scene scene = new Scene(studyRoot,300,75);
 				applicationStage.setScene(scene);
 				applicationStage.setTitle("Study Menu");
 				applicationStage.show();
@@ -51,7 +51,7 @@ public class MainMenuController {
 				applicationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				VBox studyRoot = loader.load(new FileInputStream("src/application/DeckMenuView.fxml"));
-				Scene scene = new Scene(studyRoot,400,400);
+				Scene scene = new Scene(studyRoot,330,300);
 				applicationStage.setScene(scene);
 				applicationStage.setTitle("Deck Management Menu");
 				applicationStage.show();
@@ -66,7 +66,7 @@ public class MainMenuController {
 				applicationStage = new Stage();
 				FXMLLoader loader = new FXMLLoader();
 				VBox studyRoot = loader.load(new FileInputStream("src/application/DataMenuView.fxml"));
-				Scene scene = new Scene(studyRoot,400,400);
+				Scene scene = new Scene(studyRoot,225,200);
 				applicationStage.setScene(scene);
 				applicationStage.setTitle("Data Menu");
 				applicationStage.show();

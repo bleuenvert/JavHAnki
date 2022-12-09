@@ -84,6 +84,13 @@ public class DeckMenuController {
 			
 			if (deckDataFile.createNewFile()) {
 				System.out.println(deckDataFile.getAbsolutePath());
+				PrintWriter dataWriter = new PrintWriter(deckDataFile);
+				// this is the creation of a default data file: 0 times studied, 0 correct answers, 0 incorrect answers
+				dataWriter.println("0");
+				dataWriter.println("0");
+				dataWriter.println("0");
+				dataWriter.close();
+				
 			} else {
 				System.out.println("Deck data file with that name already exists");
 			}

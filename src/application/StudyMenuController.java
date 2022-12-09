@@ -93,11 +93,14 @@ public class StudyMenuController {
 		File deck = new File(deckpath);
 		Scanner scanner = new Scanner(deck);
 		
-		//Path path2 = FileSystems.getDefault().getPath("src", "Data");
-		//String dataPath = path2.toString() + '/' + deckToStudy;
-		//dataPath.replace(".txt", ".data");
-		//File data = new File(dataPath);
-		//Scanner scanner2 = new Scanner(data);
+		Path path2 = FileSystems.getDefault().getPath("src", "Data");
+		//https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#substring(int)
+		// for string manipulation reference
+		deckToStudy = deckToStudy.substring(0, deckToStudy.length() - 3) + "data";
+		System.out.println(deckToStudy);
+		String dataPath = path2.toString() + '/' + deckToStudy;
+		File data = new File(dataPath);
+		Scanner scanner2 = new Scanner(data);
 		
 		
 		VBox studyContainer = new VBox();

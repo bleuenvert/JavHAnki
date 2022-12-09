@@ -12,6 +12,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * Controller for DataMenuView.fxml. There is a refresh decklist button and a get data from a selected deck button.
+ * @author bleu
+ *
+ */
 public class DataMenuController {
 	Stage applicationStage;
 	
@@ -30,6 +35,12 @@ public class DataMenuController {
 	@FXML
 	private ChoiceBox<String> decklistChoiceBox;
 	
+	/**
+	 * Will check the data folder and place the name of each file in the folder as an option in the 
+	 * deck list choice box.
+	 * @param refresh button press by user
+	 * @throws FileNotFoundException
+	 */
 	@FXML
 	void refreshDeckList(ActionEvent refresh) throws FileNotFoundException {
 		Path path = FileSystems.getDefault().getPath("src", "Data");
@@ -40,7 +51,14 @@ public class DataMenuController {
 
 		
 	}
-	
+	/**
+	 * Takes the selected file name from the deck list choicebox, finds the path of the file, creates
+	 * a scanner to read the data file. It scans the data files 3 lines: times studied is the first line,
+	 * correct answers is the second line and incorrect answers is the third line. It then computes the 
+	 * percentage of correct to incorrect answers and sets the relevant labels to display this information.
+	 * @param getData button press by user
+	 * @throws FileNotFoundException
+	 */
 	@FXML
 	void getData(ActionEvent getData) throws FileNotFoundException {
 		String deckToData = decklistChoiceBox.getValue();

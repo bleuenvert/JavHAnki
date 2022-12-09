@@ -1,7 +1,13 @@
+//not implemented :(
 package application;
 
 import java.util.ArrayList;
 
+/**
+ * object to track decks composed of cards.
+ * @author bleu
+ *
+ */
 public class Deck {
 	private String deckName = "";
 	private ArrayList<Card> deckList = new ArrayList<Card>();
@@ -37,6 +43,10 @@ public class Deck {
 	
 	public void setDeckList(ArrayList<Card> deckList) {
 		this.deckList = deckList;
+	}
+	
+	public void addCard(Card card) {
+		deckList.add(card);
 	}
 
 }

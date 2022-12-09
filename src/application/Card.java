@@ -1,5 +1,11 @@
+
 package application;
 
+/**
+ * Object to keep track of card variables.
+ * @author bleu
+ *
+ */
 public class Card {
 	
 	private String front = "";

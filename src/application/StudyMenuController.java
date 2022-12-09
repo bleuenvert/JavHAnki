@@ -1,31 +1,39 @@
 package application;
 
 import javafx.fxml.FXML;
-
-
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.Scanner;
-
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-
+/**
+ * Controller for StudyMenuView.fxml. There is a refresh decklist button, a study deck button that opens
+ * a new sub-studying cards menu, and 3 methods used for this sub-study menu buttons.
+ * instance variables:
+ * timesStudied number of times a deck has been opened to study it
+ * correctAnswers number of times an answer was correct
+ * incorrectAnswers number of times an answer was incorrect
+ * These are instance variables so that they may be changed across different method calls.
+ * @author bleu
+ *
+ */
 public class StudyMenuController {
 	//https://stackoverflow.com/questions/43194089/local-variable-defined-in-an-enclosing-scope-must-be-final-or-effectively-final
 	// used to help solve an issue of scope. hiddenAnswer is no longer a local variable to avoid the enclosing scope issue I had before.
 	Boolean hiddenAnswer = true;
+	int timesStudied;
+	int correctAnswers;
+	int incorrectAnswers;
 	
 	@FXML
 	private VBox rootVBox;
@@ -41,6 +49,11 @@ public class StudyMenuController {
 	@FXML
 	private Button studyButton;
 	
+	/**
+	 *  Will check the deck folder and place the name of each file in the folder as an option in the 
+	 * deck list choice box.
+	 * @param refreshDeckList
+	 */
 	@FXML
 	void refreshDeckOptions(ActionEvent refreshDeckList) {
 		Path path = FileSystems.getDefault().getPath("src", "Decks");
@@ -49,7 +62,15 @@ public class StudyMenuController {
 		decklistChoiceBox.getItems().setAll(DeckContents);
 	}
 	
-	
+	/**
+	 * checks if answer is currently hidden. If so this button allows the user to see the answer.
+	 * if there is no next line in the deck file or if the answer is not currently hidden this button 
+	 * does nothing.
+	 * @param hiddenAnswer value of whether the answer(back) currently hidden
+	 * @param backContent label that displays the back of the card.
+	 * @param deckScanner scanner for reading the deck file
+	 * @return
+	 */
 	Boolean seeAnswer(Boolean hiddenAnswer, Label backContent, Scanner deckScanner) {
 		if (hiddenAnswer == true && deckScanner.hasNextLine()) {
 			backContent.setText(deckScanner.nextLine());
@@ -59,7 +80,20 @@ public class StudyMenuController {
 		}
 	}
 	
-	Boolean correctAnswer(Boolean hiddenAnswer, Label frontContent, Label backContent, Scanner deckScanner, PrintWriter dataWriter, int correctAnswers, int incorrectAnswers) {
+	/**
+	 * If the answer is not hidden this will reset the backContent to the empty string to prepare for the next
+	 * card study. It also adds 1 to the correct answers variable. Then it checks if the deck has a next line,
+	 * is so it sets frontContent to the next card value and returns true to the hiddenAnswer variable.
+	 * if there is not a next line in the deck file the frontContent is set to a message to convey studying
+	 * of the deck is complete and the dataWriter prints the correct and incorrect answers to the data file.
+	 * @param hiddenAnswer value of whether the answer is currently hidden
+	 * @param frontContent label that displays the front of the card
+	 * @param backContent label that displays the back of the card
+	 * @param deckScanner scanner for deck file
+	 * @param dataWriter print writer for data file
+	 * @return
+	 */
+	Boolean correctAnswer(Boolean hiddenAnswer, Label frontContent, Label backContent, Scanner deckScanner, PrintWriter dataWriter) {
 		if (hiddenAnswer == false) {
 			backContent.setText("");
 			correctAnswers ++;
@@ -79,7 +113,20 @@ public class StudyMenuController {
 		}
 	}
 	
-	Boolean incorrectAnswer(Boolean hiddenAnswer, Label frontContent, Label backLabel, Scanner deckScanner, PrintWriter dataWriter, int correctAnswers, int incorrectAnswers) {
+	/**
+	 * If the answer is not hidden this will reset the backContent to the empty string to prepare for the next
+	 * card study. It also adds 1 to the incorrect answers variable. Then it checks if the deck has a next line,
+	 * is so it sets frontContent to the next card value and returns true to the hiddenAnswer variable.
+	 * if there is not a next line in the deck file the frontContent is set to a message to convey studying
+	 * of the deck is complete and the dataWriter prints the correct and incorrect answers to the data file.
+	 * @param hiddenAnswer value of whether the answer is currently hidden
+	 * @param frontContent label that displays the front of the card
+	 * @param backContent label that displays the back of the card
+	 * @param deckScanner scanner for deck file
+	 * @param dataWriter print writer for data file
+	 * @return
+	 */
+	Boolean incorrectAnswer(Boolean hiddenAnswer, Label frontContent, Label backLabel, Scanner deckScanner, PrintWriter dataWriter) {
 		if (hiddenAnswer == false) {
 			backLabel.setText("");
 			incorrectAnswers ++;
@@ -98,20 +145,35 @@ public class StudyMenuController {
 		}
 	}
 	
-	
+	/**
+	 * This method creates a sub-study menu for studying on. It creates a scene with a VBox root 
+	 * and three HBox nodes(the first two have a label for front/back respectively, a label to display
+	 * the content of the card, and some buttons). It scans the deck selected by the user in the choicebox,
+	 * in order to display the cards of the relevant deck in the sub-study menu. It scans the data file
+	 * and saves the information to the variables timesStudied, correctAnswers, incorrectAnswers. The
+	 * seeAnswer/correctAnswer/incorrectAnswer buttons call on their respective methods above in order
+	 * to move between thinking/answering states of the user (show front of card only, then show answer
+	 * and allow user to select whether they were successful).
+	 * @param study button press by user
+	 * @throws FileNotFoundException
+	 */
 	@FXML
 	void studyDeck(ActionEvent study) throws FileNotFoundException {
-		int timesStudied;
-		int correctAnswers;
-		int incorrectAnswers;
+
+		
+		//set back to true for each new study session
+		hiddenAnswer = true;
 		
 		//https://edencoding.com/stage-controller/
 		// used this to find how to get the scene/stage from the controller
 		Scene mainScene = rootVBox.getScene();
 		Stage mainStage = (Stage) mainScene.getWindow();
-		hiddenAnswer = true;
+
 		
 		String deckToStudy = decklistChoiceBox.getValue();
+		if (deckToStudy == null) {
+			titleLabel.setText("Please make a deck selection");
+		} else {
 		Path path = FileSystems.getDefault().getPath("src", "Decks");
 		String deckpath = path.toString() + '/' + deckToStudy;
 		File deck = new File(deckpath);
@@ -161,14 +223,12 @@ public class StudyMenuController {
 		
 
 
-		
+		// the "Answer" methods return a boolean relevant the the state of hiddenAnswer.
 		seeAnswerButton.setOnAction(nextEvent -> hiddenAnswer = seeAnswer(hiddenAnswer, backContent, deckScanner));
-		
-
-		correctButton.setOnAction(correctEvent -> hiddenAnswer = correctAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter, correctAnswers, incorrectAnswers));
-		incorrectButton.setOnAction(incorrectEvent -> hiddenAnswer = incorrectAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter, correctAnswers, incorrectAnswers));
+		correctButton.setOnAction(correctEvent -> hiddenAnswer = correctAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter));
+		incorrectButton.setOnAction(incorrectEvent -> hiddenAnswer = incorrectAnswer(hiddenAnswer, frontContent, backContent, deckScanner, dataWriter));
 		
 		
-		
+		}	
 	}
 }

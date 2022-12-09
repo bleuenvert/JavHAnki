@@ -9,7 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.TitledPane;
 
 
-
+/**
+ * Main loop. Runs MainMenuView.fxml and provides error tracking.
+ * @author bleu
+ *
+ */
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
